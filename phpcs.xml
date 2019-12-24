@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<ruleset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="SunOutdoor App Custom Ruleset">
+
+    <!-- Check folders -->
+    <file>./src</file>
+    <file>./tests</file>
+
+    <arg name="basepath" value="."/> <!-- Strip file basepath from report -->
+    <arg name="colors"/>
+    <arg value="p"/><!-- Display progress in report -->
+    <arg value="s"/><!-- Display sniff codes in report -->
+
+    <rule ref="./vendor/arxeiss/coding-standards/Rules/phpcs-tabs.xml">
+        <!-- trailing comma in function call is supported in PHP 7.3 and above, exclude if needed -->
+        <exclude name="SlevomatCodingStandard.Functions.TrailingCommaInCall"/>
+    </rule>
+
+    <rule ref="./vendor/arxeiss/coding-standards/Rules/phpcs-strict.xml">
+    </rule>
+
+</ruleset>

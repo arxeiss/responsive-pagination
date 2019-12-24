@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit bootstrap="vendor/autoload.php"
+         colors="true"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         beStrictAboutOutputDuringTests="true"
+         failOnRisky="true"
+         testdox="true">
+    <testsuites>
+        <testsuite name="Exceptions">
+            <directory suffix="Test.php">./tests/Exceptions</directory>
+        </testsuite>
+        <testsuite name="NoBreakpoints">
+            <directory suffix="Test.php">./tests/NoBreakpoints</directory>
+        </testsuite>
+        <testsuite name="WithBreakpoints">
+            <directory suffix="Test.php">./tests/WithBreakpoints</directory>
+        </testsuite>
+    </testsuites>
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">./src</directory>
+        </whitelist>
+    </filter>
+    <!-- <logging>
+        <log type="coverage-html" target="/tests/output/report" lowUpperBound="35" highLowerBound="70"/>
+        <log type="coverage-clover" target="/tests/output/coverage.xml"/>
+        <log type="coverage-php" target="/tests/output/coverage.serialized"/>
+        <log type="coverage-text" target="php://stdout" showUncoveredFiles="false"/>
+    </logging> -->
+</phpunit>

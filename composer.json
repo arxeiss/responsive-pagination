@@ -1,0 +1,24 @@
+{
+    "name": "arxeiss/responzive-pagination",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Pavel Kutáč",
+            "email": "pavel.kutac@gmail.com",
+            "homepage" : "https://www.kutac.cz"
+        }
+    ],
+    "require": {
+        "php" : "^7.2",
+        "arxeiss/coding-standards": "^0.2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "ResponzivePagination\\": "src"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8"
+    }
+}
