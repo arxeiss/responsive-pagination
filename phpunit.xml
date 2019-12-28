@@ -8,14 +8,8 @@
          failOnRisky="true"
          testdox="true">
     <testsuites>
-        <testsuite name="Exceptions">
-            <directory suffix="Test.php">./tests/Exceptions</directory>
-        </testsuite>
-        <testsuite name="NoBreakpoints">
-            <directory suffix="Test.php">./tests/NoBreakpoints</directory>
-        </testsuite>
-        <testsuite name="WithBreakpoints">
-            <directory suffix="Test.php">./tests/WithBreakpoints</directory>
+        <testsuite name="Units">
+            <directory suffix="Test.php">./tests/Units</directory>
         </testsuite>
     </testsuites>
     <filter>

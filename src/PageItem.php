@@ -6,7 +6,7 @@ namespace ResponzivePagination;
 
 class PageItem
 {
-	/** @var int */
+	/** @var ?int */
 	public $page;
 
 	/** @var bool */
@@ -18,22 +18,15 @@ class PageItem
 	/** @var ?string */
 	public $className;
 
-	/** @var string */
+	/** @var ?string */
 	public $link;
 
-	/**
-	 * @param int $page
-	 * @param bool $active
-	 * @param bool $dots
-	 * @param string $className
-	 * @param string $link
-	 */
 	public function __construct(
-		int $page,
+		?int $page,
 		bool $active,
 		bool $dots,
 		?string $className,
-		string $link
+		?string $link
 	) {
 		$this->page = $page;
 		$this->active = $active;

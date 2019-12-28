@@ -18,4 +18,14 @@
     <rule ref="./vendor/arxeiss/coding-standards/Rules/phpcs-strict.xml">
     </rule>
 
+    <rule ref="SlevomatCodingStandard.TypeHints.ParameterTypeHint.UselessAnnotation">
+        <severity>5</severity>
+    </rule>
+    <rule ref="SlevomatCodingStandard.TypeHints.PropertyTypeHint.UselessAnnotation">
+        <severity>5</severity>
+    </rule>
+    <rule ref="SlevomatCodingStandard.TypeHints.ReturnTypeHint.UselessAnnotation">
+        <severity>5</severity>
+    </rule>
+
 </ruleset>
