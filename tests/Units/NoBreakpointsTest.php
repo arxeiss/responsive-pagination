@@ -46,6 +46,32 @@ final class NoBreakpointsTest extends TestCase
 	 */
 	public function generateDataProvider(): array
 	{
+		$range2Pages10 = [
+			'Page 1 of 10 (range = 2)' 	=> [1, 10, 2, 0, \array_merge(\range(1, 5), ['...', 10])],
+			'Page 2 of 10 (range = 2)' 	=> [2, 10, 2, 1, \array_merge(\range(1, 5), ['...', 10])],
+			'Page 3 of 10 (range = 2)' 	=> [3, 10, 2, 2, \array_merge(\range(1, 5), ['...', 10])],
+			'Page 4 of 10 (range = 2)' 	=> [4, 10, 2, 3, \array_merge(\range(1, 6), ['...', 10])],
+			'Page 5 of 10 (range = 2)' 	=> [5, 10, 2, 4, \array_merge(\range(1, 7), ['...', 10])],
+			'Page 6 of 10 (range = 2)' 	=> [6, 10, 2, 4, \array_merge([1, '...'], \range(4, 10))],
+			'Page 7 of 10 (range = 2)' 	=> [7, 10, 2, 4, \array_merge([1, '...'], \range(5, 10))],
+			'Page 8 of 10 (range = 2)' 	=> [8, 10, 2, 4, \array_merge([1, '...'], \range(6, 10))],
+			'Page 9 of 10 (range = 2)' 	=> [9, 10, 2, 5, \array_merge([1, '...'], \range(6, 10))],
+			'Page 10 of 10 (range = 2)' => [10, 10, 2, 6, \array_merge([1, '...'], \range(6, 10))],
+		];
+
+		$range3Pages10 = [
+			'Page 1 of 10 (range = 3)' 	=> [1, 10, 3, 0, \array_merge(\range(1, 6), ['...', 10])],
+			'Page 2 of 10 (range = 3)' 	=> [2, 10, 3, 1, \array_merge(\range(1, 6), ['...', 10])],
+			'Page 3 of 10 (range = 3)' 	=> [3, 10, 3, 2, \array_merge(\range(1, 6), ['...', 10])],
+			'Page 4 of 10 (range = 3)' 	=> [4, 10, 3, 3, \array_merge(\range(1, 7), ['...', 10])],
+			'Page 5 of 10 (range = 3)' 	=> [5, 10, 3, 4, \range(1, 10)],
+			'Page 6 of 10 (range = 3)' 	=> [6, 10, 3, 5, \range(1, 10)],
+			'Page 7 of 10 (range = 3)' 	=> [7, 10, 3, 5, \array_merge([1, '...'], \range(4, 10))],
+			'Page 8 of 10 (range = 3)' 	=> [8, 10, 3, 5, \array_merge([1, '...'], \range(5, 10))],
+			'Page 9 of 10 (range = 3)' 	=> [9, 10, 3, 6, \array_merge([1, '...'], \range(5, 10))],
+			'Page 10 of 10 (range = 3)' => [10, 10, 3, 7, \array_merge([1, '...'], \range(5, 10))],
+		];
+
 		$range4Pages10 = [
 			'Page 1 of 10 (range = 4)' 	=> [1, 10, 4, 0, \array_merge(\range(1, 7), ['...', 10])],
 			'Page 2 of 10 (range = 4)' 	=> [2, 10, 4, 1, \array_merge(\range(1, 7), ['...', 10])],
@@ -71,7 +97,8 @@ final class NoBreakpointsTest extends TestCase
 		];
 
 		for ($i = 9; $i < 23; $i += 1) {
-			$range5Pages30["Page {$i} of 30 (range = 5)"] = [$i, 30, 5, 7, \array_merge(
+			$index = \sprintf('Page %d of 30 (range = 5)', $i);
+			$range5Pages30[$index] = [$i, 30, 5, 7, \array_merge(
 				[1, '...'],
 				\range($i - 5, $i + 5),
 				['...', 30]
@@ -87,7 +114,7 @@ final class NoBreakpointsTest extends TestCase
 		$range5Pages30['Page 29 of 30 (range = 5)'] = [29, 30, 5, 8, \array_merge([1, '...'], \range(23, 30))];
 		$range5Pages30['Page 30 of 30 (range = 5)'] = [30, 30, 5, 9, \array_merge([1, '...'], \range(23, 30))];
 
-		return \array_merge($range4Pages10, $range5Pages30);
+		return \array_merge($range2Pages10, $range3Pages10, $range4Pages10, $range5Pages30);
 	}
 
 	/**
@@ -117,12 +144,19 @@ final class NoBreakpointsTest extends TestCase
 
 		foreach ($buttons as $index => $button) {
 			if ($button === '...') {
-				$this->assertTrue($paginator->buttons[$index]->dots, "There are no dots on index {$index}.");
+				$this->assertTrue(
+					$paginator->buttons[$index]->dots,
+					\sprintf('There are no dots on index %d.', $index)
+				);
 
 				continue;
 			}
 
-			$this->assertSame($button, $paginator->buttons[$index]->page, "On index {$index} is not number {$button}.");
+			$this->assertSame(
+				$button,
+				$paginator->buttons[$index]->page,
+				\sprintf('On index %d is not number %d.', $index, $button)
+			);
 		}
 	}
 }

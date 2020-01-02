@@ -39,10 +39,10 @@ class Paginator
 	}
 
 	/**
-	 * Add breakpoint when paginator buttons are hidden or visible
+	 * Add breakpoint when paginator buttons should be hidden and dots visible
 	 *
 	 * @param int    $maxVisible        Max visible buttons, should be odd number
-	 * @param string $hiddenButtonClass CSS class to hide paginator button
+	 * @param string $hiddenButtonClass CSS class to hide paginator button below
 	 * @param string $visibleDotsClass  CSS class to show dots if needed
 	 */
 	public function addBreakpoint(int $maxVisible, string $hiddenButtonClass, string $visibleDotsClass): self

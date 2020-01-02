@@ -13,6 +13,7 @@
     <rule ref="./vendor/arxeiss/coding-standards/Rules/phpcs-tabs.xml">
         <!-- trailing comma in function call is supported in PHP 7.3 and above, exclude if needed -->
         <exclude name="SlevomatCodingStandard.Functions.TrailingCommaInCall"/>
+        <exclude name="PSR12.Properties.ConstantVisibility.NotFound"/>
     </rule>
 
     <rule ref="./vendor/arxeiss/coding-standards/Rules/phpcs-strict.xml">

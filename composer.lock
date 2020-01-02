@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "arxeiss/coding-standards",
-            "version": "v0.2",
+            "version": "v0.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/arxeiss/php-coding-standards.git",
-                "reference": "da42e6b30c686a66cbe2cf5fbfc29ddf23e22063"
+                "reference": "6bc1ccc78b2b332000a28ab9994516347dbf44c8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/arxeiss/php-coding-standards/zipball/da42e6b30c686a66cbe2cf5fbfc29ddf23e22063",
-                "reference": "da42e6b30c686a66cbe2cf5fbfc29ddf23e22063",
+                "url": "https://api.github.com/repos/arxeiss/php-coding-standards/zipball/6bc1ccc78b2b332000a28ab9994516347dbf44c8",
+                "reference": "6bc1ccc78b2b332000a28ab9994516347dbf44c8",
                 "shasum": ""
             },
             "require": {
@@ -37,7 +37,7 @@
                 }
             ],
             "description": "Custom PHP CodeSniffer ruleset",
-            "time": "2019-12-22T13:44:21+00:00"
+            "time": "2020-01-02T08:56:28+00:00"
         },
         {
             "name": "phpstan/phpdoc-parser",
