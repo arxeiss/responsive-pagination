@@ -8,8 +8,9 @@ all:
 	@echo "  make test:unit                     - Run phpunit tests"
 
 	@echo "\nCode style and quality"
-	@echo "  make phpcbf                        - Run phpcbf/codesniffer"
-	@echo "  make lint                          - Run phpcs/codesniffer"
+	@echo "  make phpcbf                        - Run CodeSniffer"
+	@echo "  make lint                          - Run CodeSniffer Beautifier"
+	@echo "  make phpstan                       - Run PHP STAN"
 
 help:
 	make all
@@ -28,3 +29,6 @@ phpcbf:
 
 phpcs:
 	make lint
+
+phpstan:
+	./vendor/bin/phpstan analyse $(PARAMS)
