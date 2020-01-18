@@ -5,17 +5,21 @@ cache:
         - $HOME/.composer/cache
 
 php:
-    - '7.1'
     - '7.2'
     - '7.3'
     - '7.4'
+
+jobs:
+    include:
+        - php: 7.1
+          install: composer update --no-interaction --prefer-source
 
 before_script:
     # disable xdebug if not coverage
     - if [[ $COVERAGE == "" ]]; then phpenv config-rm xdebug.ini; fi
 
 install:
-  - composer install --dev --no-interaction --prefer-source
+  - composer install --no-interaction --prefer-source
 
 script:
     - make lint
