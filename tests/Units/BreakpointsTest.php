@@ -9,12 +9,12 @@ use ResponzivePagination\Paginator;
 
 final class BreakpointsTest extends TestCase
 {
-	const B11_BUTTON = 'd-none d-lg-block';
-	const B11_DOTS = 'd-lg-none';
-	const B9_BUTTON = 'd-none d-md-block';
-	const B9_DOTS = 'd-md-none';
-	const B7_BUTTON = 'd-none d-sm-block';
-	const B7_DOTS = 'd-sm-none';
+	private const B11_BUTTON = 'd-none d-lg-block';
+	private const B11_DOTS = 'd-lg-none';
+	private const B9_BUTTON = 'd-none d-md-block';
+	private const B9_DOTS = 'd-md-none';
+	private const B7_BUTTON = 'd-none d-sm-block';
+	private const B7_DOTS = 'd-sm-none';
 
 	/**
 	 * @return array<string, int>

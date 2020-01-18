@@ -11,14 +11,19 @@
     <arg value="s"/><!-- Display sniff codes in report -->
 
     <rule ref="./vendor/arxeiss/coding-standards/Rules/phpcs-tabs.xml">
-        <!-- trailing comma in function call is supported in PHP 7.3 and above, exclude if needed -->
+        <!-- trailing comma in function call is supported in PHP 7.3 and above -->
         <exclude name="SlevomatCodingStandard.Functions.TrailingCommaInCall"/>
-        <exclude name="PSR12.Properties.ConstantVisibility.NotFound"/> <!-- Constant visibility is from PHP 7.1 -->
     </rule>
 
     <rule ref="./vendor/arxeiss/coding-standards/Rules/phpcs-strict.xml">
+        <exclude name="SlevomatCodingStandard.TypeHints.PropertyTypeHint"/>
     </rule>
 
+    <rule ref="SlevomatCodingStandard.TypeHints.PropertyTypeHint"> <!-- Check type hint for class property -->
+        <properties>
+            <property name="enableNativeTypeHint" value="false" /><!-- Still need support for older PHP than 7.4 -->
+        </properties>
+    </rule>
     <rule ref="SlevomatCodingStandard.TypeHints.ParameterTypeHint.UselessAnnotation">
         <severity>5</severity>
     </rule>
