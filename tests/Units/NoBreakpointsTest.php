@@ -19,7 +19,7 @@ final class NoBreakpointsTest extends TestCase
 			'Page 0 of 0' => [0, 0],
 			'Page 0 of 1' => [0, 1],
 			'Page 1 of 0' => [1, 0],
-			'Page 1 of 1' => [1,1],
+			'Page 1 of 1' => [1, 1],
 		];
 	}
 
@@ -98,11 +98,13 @@ final class NoBreakpointsTest extends TestCase
 
 		for ($i = 9; $i < 23; $i += 1) {
 			$index = \sprintf('Page %d of 30 (range = 5)', $i);
-			$range5Pages30[$index] = [$i, 30, 5, 7, \array_merge(
-				[1, '...'],
-				\range($i - 5, $i + 5),
-				['...', 30]
-			)];
+			$range5Pages30[$index] = [
+				$i,
+				30,
+				5,
+				7,
+				\array_merge([1, '...'], \range($i - 5, $i + 5), ['...', 30]),
+			];
 		}
 
 		$range5Pages30['Page 23 of 30 (range = 5)'] = [23, 30, 5, 7, \array_merge([1, '...'], \range(18, 30))];

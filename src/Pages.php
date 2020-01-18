@@ -7,6 +7,9 @@ namespace ResponzivePagination;
 use Iterator;
 use ResponzivePagination\PageItem;
 
+/**
+ * @implements Iterator<PageItem>
+ */
 class Pages implements Iterator
 {
 	/** @var PageItem */

@@ -80,7 +80,7 @@ class Paginator
 			$page === $currentPage,
 			false,
 			null,
-			\str_replace('%%page%%', $page, $page === 1 ? $this->firstPageLinkFormat : $this->pageLinkFormat)
+			\str_replace('%%page%%', (string)$page, $page === 1 ? $this->firstPageLinkFormat : $this->pageLinkFormat)
 		);
 	}
 
