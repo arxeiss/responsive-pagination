@@ -46,6 +46,32 @@ final class NoBreakpointsTest extends TestCase
 	 */
 	public function generateDataProvider(): array
 	{
+		$range0Pages10 = [
+			'Page 1 of 10 (range = 0)' 	=> [1, 10, 0, 0, \array_merge(\range(1, 3), ['...', 10])],
+			'Page 2 of 10 (range = 0)' 	=> [2, 10, 0, 1, \array_merge(\range(1, 3), ['...', 10])],
+			'Page 3 of 10 (range = 0)' 	=> [3, 10, 0, 2, \array_merge(\range(1, 3), ['...', 10])],
+			'Page 4 of 10 (range = 0)' 	=> [4, 10, 0, 2, [1, '...', 4, '...', 10]],
+			'Page 5 of 10 (range = 0)' 	=> [5, 10, 0, 2, [1, '...', 5, '...', 10]],
+			'Page 6 of 10 (range = 0)' 	=> [6, 10, 0, 2, [1, '...', 6, '...', 10]],
+			'Page 7 of 10 (range = 0)' 	=> [7, 10, 0, 2, [1, '...', 7, '...', 10]],
+			'Page 8 of 10 (range = 0)' 	=> [8, 10, 0, 2, \array_merge([1, '...'], \range(8, 10))],
+			'Page 9 of 10 (range = 0)' 	=> [9, 10, 0, 3, \array_merge([1, '...'], \range(8, 10))],
+			'Page 10 of 10 (range = 0)' => [10, 10, 0, 4, \array_merge([1, '...'], \range(8, 10))],
+		];
+
+		$range1Pages10 = [
+			'Page 1 of 10 (range = 1)' 	=> [1, 10, 1, 0, \array_merge(\range(1, 4), ['...', 10])],
+			'Page 2 of 10 (range = 1)' 	=> [2, 10, 1, 1, \array_merge(\range(1, 4), ['...', 10])],
+			'Page 3 of 10 (range = 1)' 	=> [3, 10, 1, 2, \array_merge(\range(1, 4), ['...', 10])],
+			'Page 4 of 10 (range = 1)' 	=> [4, 10, 1, 3, \array_merge(\range(1, 5), ['...', 10])],
+			'Page 5 of 10 (range = 1)' 	=> [5, 10, 1, 3, \array_merge([1, '...'], \range(4, 6), ['...', 10])],
+			'Page 6 of 10 (range = 1)' 	=> [6, 10, 1, 3, \array_merge([1, '...'], \range(5, 7), ['...', 10])],
+			'Page 7 of 10 (range = 1)' 	=> [7, 10, 1, 3, \array_merge([1, '...'], \range(6, 10))],
+			'Page 8 of 10 (range = 1)' 	=> [8, 10, 1, 3, \array_merge([1, '...'], \range(7, 10))],
+			'Page 9 of 10 (range = 1)' 	=> [9, 10, 1, 4, \array_merge([1, '...'], \range(7, 10))],
+			'Page 10 of 10 (range = 1)' => [10, 10, 1, 5, \array_merge([1, '...'], \range(7, 10))],
+		];
+
 		$range2Pages10 = [
 			'Page 1 of 10 (range = 2)' 	=> [1, 10, 2, 0, \array_merge(\range(1, 5), ['...', 10])],
 			'Page 2 of 10 (range = 2)' 	=> [2, 10, 2, 1, \array_merge(\range(1, 5), ['...', 10])],
@@ -116,7 +142,14 @@ final class NoBreakpointsTest extends TestCase
 		$range5Pages30['Page 29 of 30 (range = 5)'] = [29, 30, 5, 8, \array_merge([1, '...'], \range(23, 30))];
 		$range5Pages30['Page 30 of 30 (range = 5)'] = [30, 30, 5, 9, \array_merge([1, '...'], \range(23, 30))];
 
-		return \array_merge($range2Pages10, $range3Pages10, $range4Pages10, $range5Pages30);
+		return \array_merge(
+			$range0Pages10,
+			$range1Pages10,
+			$range2Pages10,
+			$range3Pages10,
+			$range4Pages10,
+			$range5Pages30
+		);
 	}
 
 	/**
@@ -160,5 +193,31 @@ final class NoBreakpointsTest extends TestCase
 				\sprintf('On index %d is not number %d.', $index, $button)
 			);
 		}
+	}
+
+	/**
+	 * @return array<string, array<mixed>>
+	 */
+	public function argumentExceptionConstructorProvider(): array
+	{
+		return [
+			'Current page equals -1' => [-1, 0, 1, 'Parameter $currentPage must be greater or equals to 0'],
+			'Current page equals -7' => [-7, 0, 1, 'Parameter $currentPage must be greater or equals to 0'],
+			'Total pages equals -1' => [0, -1, 1, 'Parameter $totalPages must be greater or equals to 0'],
+			'Total pages equals -12' => [0, -12, 1, 'Parameter $totalPages must be greater or equals to 0'],
+			'Range equals to -1' => [0, 0, -1, 'Parameter $range must be greater or equals to 0'],
+			'Range equals to -6' => [0, 0, -6, 'Parameter $range must be greater or equals to 0'],
+		];
+	}
+
+	/**
+	 * @dataProvider argumentExceptionConstructorProvider
+	 */
+	public function testConstructorExceptions(int $currentPage, int $totalPages, int $range, string $message): void
+	{
+		$this->expectException(\ResponzivePagination\Exceptions\InvalidArgumentException::class);
+		$this->expectExceptionMessage($message);
+
+		new Paginator($currentPage, $totalPages, $range);
 	}
 }

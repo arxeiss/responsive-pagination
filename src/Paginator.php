@@ -31,6 +31,21 @@ class Paginator
 		string $pageLinkFormat = '?page=%%page%%',
 		?string $firstPageLinkFormat = null
 	) {
+		if ($currentPage < 0) {
+			throw new \ResponzivePagination\Exceptions\InvalidArgumentException(
+				'Parameter $currentPage must be greater or equals to 0'
+			);
+		}
+		if ($totalPages < 0) {
+			throw new \ResponzivePagination\Exceptions\InvalidArgumentException(
+				'Parameter $totalPages must be greater or equals to 0'
+			);
+		}
+		if ($range < 0) {
+			throw new \ResponzivePagination\Exceptions\InvalidArgumentException(
+				'Parameter $range must be greater or equals to 0'
+			);
+		}
 		$this->currentPage = $currentPage;
 		$this->totalPages = $totalPages;
 		$this->range = $range;
@@ -41,13 +56,18 @@ class Paginator
 	/**
 	 * Add breakpoint when paginator buttons should be hidden and dots visible
 	 *
-	 * @param int    $maxVisible        Max visible buttons, should be odd number
+	 * @param int    $range             Max visible buttons, should be odd number
 	 * @param string $hiddenButtonClass CSS class to hide paginator button below
 	 * @param string $visibleDotsClass  CSS class to show dots if needed
 	 */
-	public function addBreakpoint(int $maxVisible, string $hiddenButtonClass, string $visibleDotsClass): self
+	public function addBreakpoint(int $range, string $hiddenButtonClass, string $visibleDotsClass): self
 	{
-		$this->breakpoints[$maxVisible] = [$hiddenButtonClass, $visibleDotsClass];
+		if ($range < 0) {
+			throw new \ResponzivePagination\Exceptions\InvalidArgumentException(
+				'Parameter $range must be greater or equals to 0'
+			);
+		}
+		$this->breakpoints[$range] = [$hiddenButtonClass, $visibleDotsClass];
 
 		return $this;
 	}
@@ -60,8 +80,8 @@ class Paginator
 		$paginator = $this->generatePages();
 
 		\krsort($this->breakpoints);
-		foreach ($this->breakpoints as $maxVisible => [$hiddenButtonClass, $visibleDotsClass]) {
-			$paginator = $this->applyBreakpointClasses($paginator, $maxVisible, $hiddenButtonClass, $visibleDotsClass);
+		foreach ($this->breakpoints as $range => [$hiddenButtonClass, $visibleDotsClass]) {
+			$paginator = $this->applyBreakpointClasses($paginator, $range, $hiddenButtonClass, $visibleDotsClass);
 		}
 
 		return $paginator;
@@ -104,7 +124,6 @@ class Paginator
 	protected function generatePages(): Pages
 	{
 		$paginator = new Pages();
-		$range = $this->range;
 
 		// If there is only 1 page
 		if ($this->totalPages <= 1) {
@@ -115,6 +134,27 @@ class Paginator
 
 		$paginator->current = $this->createElement($this->currentPage, $this->currentPage);
 
+		$range = $this->getRange();
+		// Where the middle part (exclude first and last page) starts
+		$startMiddle = \max($this->currentPage - $range, 2);
+		$endMiddle = \min($this->currentPage + $range, $this->totalPages - 1);
+
+		$paginator->buttons[] = $this->createElement(1, $this->currentPage);
+		$this->addBeginningButtons($paginator, $startMiddle);
+
+		for ($i = $startMiddle; $i <= $endMiddle; $i += 1) {
+			$paginator->buttons[] = $this->createElement($i, $this->currentPage);
+		}
+
+		$this->addEndingButtons($paginator, $endMiddle);
+		$paginator->buttons[] = $this->createElement($this->totalPages, $this->currentPage);
+
+		return $paginator;
+	}
+
+	protected function getRange(): int
+	{
+		$range = $this->range;
 		// If is first/last (or second/second from the end) page increase range,
 		// as range cannot be applied to both directions equally
 		if ($this->currentPage === 1 || $this->currentPage === $this->totalPages) {
@@ -123,12 +163,11 @@ class Paginator
 			$range += 1;
 		}
 
-		// Where the middle part (exclude first and last page) starts
-		$startMiddle = \max($this->currentPage - $range, 2);
-		$endMiddle = \min($this->currentPage + $range, $this->totalPages - 1);
+		return $range;
+	}
 
-		$paginator->buttons[] = $this->createElement(1, $this->currentPage);
-
+	protected function addBeginningButtons(Pages $paginator, int $startMiddle): void
+	{
 		if ($this->currentPage !== 1) {
 			$paginator->prev = $this->createElement($this->currentPage - 1);
 
@@ -139,11 +178,10 @@ class Paginator
 				$paginator->buttons[] = $this->createDots();
 			}
 		}
+	}
 
-		for ($i = $startMiddle; $i <= $endMiddle; $i += 1) {
-			$paginator->buttons[] = $this->createElement($i, $this->currentPage);
-		}
-
+	protected function addEndingButtons(Pages $paginator, int $endMiddle): void
+	{
 		if ($this->currentPage !== $this->totalPages) {
 			$paginator->next = $this->createElement($this->currentPage + 1);
 
@@ -154,21 +192,16 @@ class Paginator
 				$paginator->buttons[] = $this->createDots();
 			}
 		}
-
-		$paginator->buttons[] = $this->createElement($this->totalPages, $this->currentPage);
-
-		return $paginator;
 	}
 
 	protected function applyBreakpointClasses(
 		Pages $paginator,
-		int $maxVisible,
+		int $range,
 		string $hiddenButtonClass,
 		string $visibleDotsClass
 	): Pages {
-		$buttons = &$paginator->buttons;
-
-		$toHide = \count($buttons) - $maxVisible;
+		$maxVisible = static::rangeToMaxVisible($range);
+		$toHide = \count($paginator->buttons) - $maxVisible;
 		if ($toHide < 1) {
 			return $paginator;
 		}
@@ -180,7 +213,7 @@ class Paginator
 			$toHide += 1;
 
 			// Insert new dots element to index 1
-			\array_splice($buttons, 1, 0, [$this->createDots($visibleDotsClass)]);
+			\array_splice($paginator->buttons, 1, 0, [$this->createDots($visibleDotsClass)]);
 			$leftDotsIndex = 1;
 
 			// Move also other pointers when dots button on left side is added
@@ -192,10 +225,23 @@ class Paginator
 		// There are no dots on the right side, but breakpoint should hide some of elements on the right side
 		if (!$rightDotsIndex && $this->currentPage < $this->totalPages - (int)\floor($maxVisible / 2)) {
 			$toHide += 1;
-			\array_splice($buttons, -1, 0, [$this->createDots($visibleDotsClass)]);
-			$rightDotsIndex = \count($buttons) - 2; // -1 because of index and -1 to 1 position before end
+			\array_splice($paginator->buttons, -1, 0, [$this->createDots($visibleDotsClass)]);
+			$rightDotsIndex = \count($paginator->buttons) - 2; // -1 because of index and -1 to 1 position before end
 		}
 
+		$this->addButtonClasses($paginator, $middleIndex, $leftDotsIndex, $rightDotsIndex, $toHide, $hiddenButtonClass);
+
+		return $paginator;
+	}
+
+	private function addButtonClasses(
+		Pages $paginator,
+		int $middleIndex,
+		?int $leftDotsIndex,
+		?int $rightDotsIndex,
+		int $toHide,
+		string $hiddenButtonClass
+	): void {
 		$hideFromLeft = 0;
 		$hideFromRight = 0;
 
@@ -206,26 +252,24 @@ class Paginator
 			$hideFromLeft = $toHide;
 		} elseif ($leftDotsIndex && $rightDotsIndex) {
 			// How many buttons around actual index should be visible
-			$middleVisibleOffset = (int)\ceil((\count($buttons) - $toHide - 5) / 2);
+			$middleVisibleOffset = (int)\ceil((\count($paginator->buttons) - $toHide - 5) / 2);
 			$hideFromLeft = $middleIndex - 2 - $middleVisibleOffset;
-			$hideFromRight = \count($buttons) - $middleIndex - 3 - $middleVisibleOffset;
+			$hideFromRight = \count($paginator->buttons) - $middleIndex - 3 - $middleVisibleOffset;
 		}
 
 		for ($i = 0; $i < $hideFromLeft; $i += 1) {
 			$buttonIndex = $leftDotsIndex + $i + 1;
-			if (!$buttons[$buttonIndex]->className) {
-				$buttons[$buttonIndex]->className = $hiddenButtonClass;
+			if (!$paginator->buttons[$buttonIndex]->className) {
+				$paginator->buttons[$buttonIndex]->className = $hiddenButtonClass;
 			}
 		}
 
 		for ($i = 0; $i < $hideFromRight; $i += 1) {
 			$buttonIndex = $rightDotsIndex - $i - 1;
-			if (!$buttons[$buttonIndex]->className) {
-				$buttons[$buttonIndex]->className = $hiddenButtonClass;
+			if (!$paginator->buttons[$buttonIndex]->className) {
+				$paginator->buttons[$buttonIndex]->className = $hiddenButtonClass;
 			}
 		}
-
-		return $paginator;
 	}
 
 	/**
@@ -268,5 +312,20 @@ class Paginator
 				return $key;
 			}
 		}
+	}
+
+	/**
+	 * Convert given range into maximum amount of visible buttons including dots and excluding prev and next button
+	 */
+	public static function rangeToMaxVisible(int $range): int
+	{
+		if ($range < 0) {
+			throw new \ResponzivePagination\Exceptions\InvalidArgumentException(
+				'Parameter $range must be greater or equals to 0'
+			);
+		}
+
+		// First and last button + first and last dots + middle button + 2x range around middle button
+		return $range * 2 + 5;
 	}
 }
