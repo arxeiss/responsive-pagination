@@ -173,18 +173,7 @@ class Paginator
 			return $paginator;
 		}
 
-		// Search index of active element
-		$middleIndex = self::arrayCallbackSearch($buttons, static function ($button) {
-			return $button->active === true;
-		});
-		// Search for index of the left dots element - there will be max 1 dots element on the left from middle index
-		$leftDotsIndex = self::arrayCallbackSearch($buttons, static function ($button, $key) use ($middleIndex) {
-			return $button->dots && $key < $middleIndex;
-		});
-		// Search for index of the right dots element - there will be max 1 dots element on the right from middle index
-		$rightDotsIndex = self::arrayCallbackSearch($buttons, static function ($button, $key) use ($middleIndex) {
-			return $button->dots && $key > $middleIndex;
-		});
+		[$leftDotsIndex, $middleIndex, $rightDotsIndex] = $this->getDotsIndex($paginator);
 
 		// There are no dots on the left side but breakpoint should hide some of the elements on the left side
 		if (!$leftDotsIndex && $this->currentPage > (int)\ceil($maxVisible / 2)) {
@@ -237,6 +226,33 @@ class Paginator
 		}
 
 		return $paginator;
+	}
+
+	/**
+	 * @return array<int>
+	 */
+	protected function getDotsIndex(Pages $paginator): array
+	{
+		// Search index of active element
+		$middleIndex = self::arrayCallbackSearch($paginator->buttons, static function ($button) {
+			return $button->active === true;
+		});
+		// Search for index of the left dots element - there will be max 1 dots element on the left from middle index
+		$leftDotsIndex = self::arrayCallbackSearch(
+			$paginator->buttons,
+			static function ($button, $key) use ($middleIndex) {
+				return $button->dots && $key < $middleIndex;
+			}
+		);
+		// Search for index of the right dots element - there will be max 1 dots element on the right from middle index
+		$rightDotsIndex = self::arrayCallbackSearch(
+			$paginator->buttons,
+			static function ($button, $key) use ($middleIndex) {
+				return $button->dots && $key > $middleIndex;
+			}
+		);
+
+		return [$leftDotsIndex, $middleIndex, $rightDotsIndex];
 	}
 
 	/**

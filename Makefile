@@ -1,6 +1,6 @@
 #!make
 
-all:
+help:
 	@echo "Project aliases and shortcuts."
 
 	@echo "\nTests"
@@ -12,8 +12,10 @@ all:
 	@echo "  make lint                          - Run CodeSniffer Beautifier"
 	@echo "  make phpstan                       - Run PHP STAN"
 
-help:
-	make all
+all:
+	make lint
+	make phpstan
+	make test
 
 test:
 	./vendor/bin/phpunit $(TESTS)
