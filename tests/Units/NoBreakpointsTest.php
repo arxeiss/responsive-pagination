@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Tests\Units;
 
 use PHPUnit\Framework\TestCase;
-use ResponzivePagination\PageItem;
-use ResponzivePagination\Paginator;
+use ResponsivePagination\PageItem;
+use ResponsivePagination\Paginator;
 
 final class NoBreakpointsTest extends TestCase
 {
@@ -215,7 +215,7 @@ final class NoBreakpointsTest extends TestCase
 	 */
 	public function testConstructorExceptions(int $currentPage, int $totalPages, int $range, string $message): void
 	{
-		$this->expectException(\ResponzivePagination\Exceptions\InvalidArgumentException::class);
+		$this->expectException(\ResponsivePagination\Exceptions\InvalidArgumentException::class);
 		$this->expectExceptionMessage($message);
 
 		new Paginator($currentPage, $totalPages, $range);

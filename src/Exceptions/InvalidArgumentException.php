@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace ResponzivePagination\Exceptions;
+namespace ResponsivePagination\Exceptions;
 
 class InvalidArgumentException extends \InvalidArgumentException
 {

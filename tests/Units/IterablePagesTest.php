@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tests\Units;
 
 use PHPUnit\Framework\TestCase;
-use ResponzivePagination\Paginator;
+use ResponsivePagination\Paginator;
 
 final class IterablePagesTest extends TestCase
 {

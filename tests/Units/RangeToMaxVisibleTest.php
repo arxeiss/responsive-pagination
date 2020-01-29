@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tests\Units;
 
 use PHPUnit\Framework\TestCase;
-use ResponzivePagination\Paginator;
+use ResponsivePagination\Paginator;
 
 final class RangeToMaxVisibleTest extends TestCase
 {
@@ -35,7 +35,7 @@ final class RangeToMaxVisibleTest extends TestCase
 	 */
 	public function testExceptions(int $range): void
 	{
-		$this->expectException(\ResponzivePagination\Exceptions\InvalidArgumentException::class);
+		$this->expectException(\ResponsivePagination\Exceptions\InvalidArgumentException::class);
 		$this->expectExceptionMessage('Parameter $range must be greater or equals to 0');
 
 		Paginator::rangeToMaxVisible($range);

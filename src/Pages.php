@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace ResponzivePagination;
+namespace ResponsivePagination;
 
 use Iterator;
-use ResponzivePagination\PageItem;
+use ResponsivePagination\PageItem;
 
 /**
  * @implements Iterator<PageItem>

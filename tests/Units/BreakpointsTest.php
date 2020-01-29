@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tests\Units;
 
 use PHPUnit\Framework\TestCase;
-use ResponzivePagination\Paginator;
+use ResponsivePagination\Paginator;
 
 final class BreakpointsTest extends TestCase
 {
@@ -252,7 +252,7 @@ final class BreakpointsTest extends TestCase
 	{
 		$paginator = new Paginator(10, 30);
 
-		$this->expectException(\ResponzivePagination\Exceptions\InvalidArgumentException::class);
+		$this->expectException(\ResponsivePagination\Exceptions\InvalidArgumentException::class);
 		$this->expectExceptionMessage('Parameter $range must be greater or equals to 0');
 
 		$paginator->addBreakpoint($range, 'someClass', 'anotherClass');

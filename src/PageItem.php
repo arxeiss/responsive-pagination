@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace ResponzivePagination;
+namespace ResponsivePagination;
 
 class PageItem
 {

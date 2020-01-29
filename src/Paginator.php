@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace ResponzivePagination;
+namespace ResponsivePagination;
 
 class Paginator
 {
@@ -32,17 +32,17 @@ class Paginator
 		?string $firstPageLinkFormat = null
 	) {
 		if ($currentPage < 0) {
-			throw new \ResponzivePagination\Exceptions\InvalidArgumentException(
+			throw new \ResponsivePagination\Exceptions\InvalidArgumentException(
 				'Parameter $currentPage must be greater or equals to 0'
 			);
 		}
 		if ($totalPages < 0) {
-			throw new \ResponzivePagination\Exceptions\InvalidArgumentException(
+			throw new \ResponsivePagination\Exceptions\InvalidArgumentException(
 				'Parameter $totalPages must be greater or equals to 0'
 			);
 		}
 		if ($range < 0) {
-			throw new \ResponzivePagination\Exceptions\InvalidArgumentException(
+			throw new \ResponsivePagination\Exceptions\InvalidArgumentException(
 				'Parameter $range must be greater or equals to 0'
 			);
 		}
@@ -63,7 +63,7 @@ class Paginator
 	public function addBreakpoint(int $range, string $hiddenButtonClass, string $visibleDotsClass): self
 	{
 		if ($range < 0) {
-			throw new \ResponzivePagination\Exceptions\InvalidArgumentException(
+			throw new \ResponsivePagination\Exceptions\InvalidArgumentException(
 				'Parameter $range must be greater or equals to 0'
 			);
 		}
@@ -320,7 +320,7 @@ class Paginator
 	public static function rangeToMaxVisible(int $range): int
 	{
 		if ($range < 0) {
-			throw new \ResponzivePagination\Exceptions\InvalidArgumentException(
+			throw new \ResponsivePagination\Exceptions\InvalidArgumentException(
 				'Parameter $range must be greater or equals to 0'
 			);
 		}

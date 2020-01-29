@@ -1,5 +1,5 @@
 {
-    "name": "arxeiss/responzive-pagination",
+    "name": "arxeiss/responsive-pagination",
     "type": "library",
     "license": "MIT",
     "authors": [
@@ -14,7 +14,7 @@
     },
     "autoload": {
         "psr-4": {
-            "ResponzivePagination\\": "src"
+            "ResponsivePagination\\": "src"
         }
     },
     "require-dev": {
