@@ -10,11 +10,11 @@ php:
     - '7.4'
 
 jobs:
+    fast_finish: true
     include:
         - php: 7.1
           install: composer update --no-interaction --prefer-source --prefer-lowest
-        - stage: coverage
-          php: 7.4
+        - php: 7.4
           env: COVERAGE=true
           before_script:
             - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
@@ -22,6 +22,8 @@ jobs:
           script:
             - "phpunit --coverage-text --coverage-clover build/logs/clover.xml"
             - if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then ./cc-test-reporter after-build -t clover --exit-code $TRAVIS_TEST_RESULT; fi
+    allow_failures:
+        - env: COVERAGE=true
 
 before_script:
     # disable xdebug if not coverage
