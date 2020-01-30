@@ -8,9 +8,11 @@
 ![GitHub](https://img.shields.io/github/license/arxeiss/responsive-pagination)
 [![PHP STAN](https://img.shields.io/badge/phpstan-level%208-informational)](https://github.com/phpstan/phpstan)
 
-A Responsive pagination library can generate pagination like many others. But the main goal is to provide **responsive functionality** for hiding and showing some links according to breakpoints.<br>
-Responsivity is fully controlled by **CSS**, so can be used with Bootstrap or any other framework.<br>
-It also can be used with any CMS. There is an example with Wordpress. See [arxeiss.github.io/responsive-pagination](https://arxeiss.github.io/responsive-pagination/).
+A Responsive pagination library can generate pagination like many others. But the main goal is to provide **responsive functionality** for hiding and showing some link buttons according to breakpoints.
+
+Responsivity is fully controlled only by your own **CSS classes**, so can be used with Bootstrap, any other framework or custom solution.<br>
+It also can be used with any CMS. There is an example with Wordpress.<br>
+See [arxeiss.github.io/responsive-pagination](https://arxeiss.github.io/responsive-pagination/).
 
 <p align="center">
 <a href="https://github.com/arxeiss/responsive-pagination/blob/master/docs/responzive-pagination-screen.png?raw=true"><img src="https://github.com/arxeiss/responsive-pagination/blob/master/docs/responzive-pagination-screen.png?raw=true" alt="Responsive pagination screenshot" width="300"></a><br>

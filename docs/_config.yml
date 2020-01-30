@@ -1,1 +1,6 @@
 theme: jekyll-theme-cayman
+title: Responsive pagination
+show_downloads: true
+
+plugins:
+  - jemoji
