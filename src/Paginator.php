@@ -100,7 +100,19 @@ class Paginator
 			$page === $currentPage,
 			false,
 			null,
-			\str_replace('%%page%%', (string)$page, $page === 1 ? $this->firstPageLinkFormat : $this->pageLinkFormat)
+			$this->formatLink($page)
+		);
+	}
+
+	/**
+	 * Format URL based on given page and link formats
+	 */
+	public function formatLink(int $page): string
+	{
+		return \str_replace(
+			'%%page%%',
+			(string)$page,
+			$page === 1 ? $this->firstPageLinkFormat : $this->pageLinkFormat
 		);
 	}
 
