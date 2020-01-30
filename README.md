@@ -33,7 +33,7 @@ composer require arxeiss/responsive-pagination
 
 See [arxeiss.github.io/responsive-pagination](https://arxeiss.github.io/responsive-pagination/) for more usage and code examples.
 
-Or see [unit tests](https://github.com/arxeiss/responsive-pagination/tree/master/tests) if you want to dig deeper.
+Or see [unit tests](https://github.com/arxeiss/responsive-pagination/tree/master/tests/Units) if you want to dig deeper.
 
 ## Contribution
 
