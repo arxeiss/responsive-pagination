@@ -1,7 +1,7 @@
 {
     "name": "arxeiss/responsive-pagination",
     "type": "library",
-    "license": "MIT",
+    "license": "Apache-2.0",
     "authors": [
         {
             "name": "Pavel Kutáč",
