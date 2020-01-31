@@ -21,13 +21,8 @@ class PageItem
 	/** @var ?string */
 	public $link;
 
-	public function __construct(
-		?int $page,
-		bool $active,
-		bool $dots,
-		?string $className,
-		?string $link
-	) {
+	public function __construct(?int $page, bool $active, bool $dots, ?string $className, ?string $link)
+	{
 		$this->page = $page;
 		$this->active = $active;
 		$this->dots = $dots;

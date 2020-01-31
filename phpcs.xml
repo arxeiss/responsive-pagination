@@ -15,9 +15,7 @@
         <exclude name="SlevomatCodingStandard.Functions.TrailingCommaInCall"/>
     </rule>
 
-    <rule ref="./vendor/arxeiss/coding-standards/Rules/phpcs-strict.xml">
-        <exclude name="SlevomatCodingStandard.TypeHints.PropertyTypeHint"/>
-    </rule>
+    <rule ref="./vendor/arxeiss/coding-standards/Rules/phpcs-strict.xml"/>
 
     <rule ref="SlevomatCodingStandard.TypeHints.PropertyTypeHint"> <!-- Check type hint for class property -->
         <properties>
