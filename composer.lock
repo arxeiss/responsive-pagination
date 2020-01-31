@@ -4,26 +4,26 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "91e0e22996cb82c708aec7e4fcd1a8ab",
+    "content-hash": "85e4a272c2808cbf42168cb95bc35fb6",
     "packages": [],
     "packages-dev": [
         {
             "name": "arxeiss/coding-standards",
-            "version": "v0.4.0",
+            "version": "v0.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/arxeiss/php-coding-standards.git",
-                "reference": "cd90d678eff829a338a07f0fcea3d6b6cc6cea27"
+                "reference": "969722d7f8f5658ad581911fc2b9bd11268b9acd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/arxeiss/php-coding-standards/zipball/cd90d678eff829a338a07f0fcea3d6b6cc6cea27",
-                "reference": "cd90d678eff829a338a07f0fcea3d6b6cc6cea27",
+                "url": "https://api.github.com/repos/arxeiss/php-coding-standards/zipball/969722d7f8f5658ad581911fc2b9bd11268b9acd",
+                "reference": "969722d7f8f5658ad581911fc2b9bd11268b9acd",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.1",
-                "slevomat/coding-standard": "^6.0"
+                "slevomat/coding-standard": "^6.1.1"
             },
             "type": "phpcodesniffer-standard",
             "notification-url": "https://packagist.org/downloads/",
@@ -38,7 +38,7 @@
                 }
             ],
             "description": "Custom PHP CodeSniffer ruleset",
-            "time": "2020-01-31T11:56:03+00:00"
+            "time": "2020-01-31T13:08:07+00:00"
         },
         {
             "name": "doctrine/instantiator",
