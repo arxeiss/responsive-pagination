@@ -12,8 +12,6 @@ php:
 jobs:
     fast_finish: true
     include:
-        - php: 7.1
-          install: composer update --no-interaction --prefer-source --prefer-lowest
         - php: 7.4
           env: COVERAGE=true
           before_script:
@@ -30,7 +28,7 @@ before_script:
     - if [[ $COVERAGE == "" ]]; then phpenv config-rm xdebug.ini; fi
 
 install:
-  - composer install --no-interaction --prefer-source
+  - composer install --no-interaction --prefer-dist --no-ansi --no-progress --no-suggest
 
 script:
     - make lint
