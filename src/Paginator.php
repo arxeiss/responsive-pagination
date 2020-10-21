@@ -121,13 +121,7 @@ class Paginator
 	 */
 	protected function createDots(?string $addClass = null): PageItem
 	{
-		return new PageItem(
-			null,
-			false,
-			true,
-			$addClass,
-			null
-		);
+		return new PageItem(null, false, true, $addClass, null);
 	}
 
 	/**
